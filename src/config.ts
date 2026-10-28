@@ -8,6 +8,9 @@
 //
 // Tant que ces valeurs sont vides, l'appli fonctionne en « mode local » :
 // tout est enregistré sur l'appareil, sans synchronisation.
+//
+// Les valeurs viennent des « Variables » du dépôt GitHub (voir docs/installation.md, étape 3),
+// ou d'un fichier .env sur l'ordinateur pour le développement.
 export const SUPABASE_URL: string = import.meta.env.VITE_SUPABASE_URL ?? ''
 export const SUPABASE_CLE_PUBLIQUE: string = import.meta.env.VITE_SUPABASE_CLE_PUBLIQUE ?? ''
 
