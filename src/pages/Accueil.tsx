@@ -224,9 +224,9 @@ export default function Accueil() {
           <span className="tuile-icone">📖</span>
           <span className="tuile-titre">Recettes</span>
         </Link>
-        <Link to="/parametres/sauvegardes" className="tuile">
-          <span className="tuile-icone">💾</span>
-          <span className="tuile-titre">Sauvegardes</span>
+        <Link to="/statistiques/bilan" className="tuile">
+          <span className="tuile-icone">📝</span>
+          <span className="tuile-titre">Préparer mon bilan</span>
         </Link>
       </nav>
 

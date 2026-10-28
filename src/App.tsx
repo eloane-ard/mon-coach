@@ -24,6 +24,8 @@ import { PageNutrition, SaisieAliment } from './pages/nutrition/Nutrition'
 import { ChangerRepas, PagePlanning } from './pages/nutrition/Planning'
 import { PageCourses } from './pages/nutrition/Courses'
 import Statistiques from './pages/Statistiques'
+import Photos from './pages/evolution/Photos'
+import Bilan from './pages/Bilan'
 
 /** Pages déjà construites, par adresse. Les autres espaces affichent « Bientôt disponible ». */
 const PAGES: Record<string, ReactNode> = {
@@ -45,6 +47,8 @@ const PAGES: Record<string, ReactNode> = {
   '/planning-repas/changer': <ChangerRepas />,
   '/courses': <PageCourses />,
   '/statistiques': <Statistiques />,
+  '/statistiques/bilan': <Bilan />,
+  '/evolution/photos': <Photos />,
   '/parametres': <Parametres />,
   '/parametres/compte': <Compte />,
   '/parametres/profil': <PageProfil />,

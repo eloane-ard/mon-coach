@@ -1,5 +1,6 @@
 // Historique et statistiques : graphiques sur 7 jours, 30 jours, 3 mois, 6 mois, 1 an ou depuis le début.
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router'
 import { Badge } from '../composants/formulaire'
 import { ChoixPeriode, GraphiqueBarres, GraphiqueLignes } from '../composants/Graphique'
 import { EXERCICES, exercice } from '../contenu/exercices'
@@ -74,6 +75,9 @@ export default function Statistiques() {
 
   return (
     <>
+      <Link to="/statistiques/bilan" className="bouton bouton-principal bouton-large">
+        📝 Préparer mon bilan
+      </Link>
       <ChoixPeriode options={PERIODES} valeur={periode} onChange={setPeriode} />
 
       <h2 className="titre-section">Silhouette</h2>

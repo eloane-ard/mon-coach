@@ -35,6 +35,14 @@ export default function Evolution() {
       <Link to="/evolution/saisie" className="bouton bouton-principal bouton-large">
         ＋ Nouvelle mesure
       </Link>
+      <div className="boutons-seance">
+        <Link to="/evolution/photos" className="bouton">
+          📷 Photos de progression
+        </Link>
+        <Link to="/statistiques/bilan" className="bouton">
+          📝 Préparer mon bilan
+        </Link>
+      </div>
 
       <section className="carte">
         <h2>Où j’en suis</h2>
