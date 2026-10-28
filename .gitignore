@@ -13,6 +13,7 @@ coverage/
 
 # Sauvegardes et exports locaux de mes données (restent sur mon ordinateur)
 *.sql
+!supabase/migrations/*.sql
 *.dump
 mon-coach-export-*.json
 
