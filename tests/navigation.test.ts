@@ -28,6 +28,10 @@ describe('navigation', () => {
     expect(ESPACES.filter((e) => estDisponible(e, 1)).map((e) => e.chemin)).toEqual(['/evolution', '/parametres'])
   })
 
+  it('en V3, recettes et nutrition s’ajoutent', () => {
+    expect(ESPACES.filter((e) => estDisponible(e, 3)).map((e) => e.chemin)).toContain('/recettes')
+  })
+
   it('en V2, le sport s’ajoute', () => {
     expect(ESPACES.filter((e) => estDisponible(e, 2)).map((e) => e.chemin)).toEqual([
       '/programme',

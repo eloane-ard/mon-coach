@@ -356,3 +356,26 @@ details.carte summary { list-style-position: inside; }
   font-size: 1.3rem; font-weight: 700; text-align: center; cursor: pointer;
 }
 .minuterie small { font-size: 0.75rem; font-weight: 400; opacity: 0.85; }
+
+/* ---------- Recettes et nutrition ---------- */
+.recherche, .selecteur {
+  width: 100%; min-height: 48px; padding: 0.6rem 0.8rem; margin-bottom: 0.4rem;
+  border: 1px solid var(--bordure); border-radius: 12px; background: var(--surface); color: var(--texte); font: inherit; font-size: 17px;
+}
+.filtres .choix { margin: 0.4rem 0; }
+.carte-recette, .carte-aliment { display: block; text-decoration: none; padding: 0.8rem 1rem; }
+.carte-recette h3 { margin: 0 0 0.2rem; }
+.carte-aliment { display: flex; flex-direction: column; gap: 0.2rem; margin-bottom: 0.5rem; }
+.etoile { color: #d99a00; }
+.bouton-favori { color: #b07c00; border-color: #e6c35c; }
+.badges { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
+.grille-macros { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; margin: 0.5rem 0; }
+.grille-macros div { display: flex; flex-direction: column; align-items: center; padding: 0.5rem; background: var(--surface-2); border-radius: 12px; }
+.grille-macros strong { font-size: 1.1rem; }
+.grille-macros small { color: var(--discret); font-size: 0.78rem; }
+.compteur { display: flex; align-items: center; gap: 0.5rem; }
+.compteur .bouton { min-width: 40px; font-size: 1.2rem; }
+.liste-ingredients { list-style: none; padding: 0; margin: 0.4rem 0; }
+.liste-ingredients li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0; border-bottom: 1px solid var(--bordure); }
+ol, ul { padding-left: 1.2rem; }
+ol li, ul li { margin: 0.3rem 0; }

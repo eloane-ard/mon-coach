@@ -9,6 +9,7 @@ vi.mock('virtual:pwa-register/react', () => ({
 }))
 
 const { default: App } = await import('../src/App')
+const { default: BientotDisponible } = await import('../src/pages/BientotDisponible')
 
 function afficher(adresse = '/') {
   return render(
@@ -26,9 +27,12 @@ describe('appli', () => {
   })
 
   it('affiche « Bientôt disponible » pour un espace des versions suivantes', () => {
-    afficher('/recettes')
-    expect(screen.getByRole('heading', { level: 1, name: 'Recettes' })).toBeInTheDocument()
-    expect(screen.getByText('Bientôt disponible (V3).')).toBeInTheDocument()
+    render(
+      <MemoryRouter>
+        <BientotDisponible espace={{ chemin: '/futur', titre: 'Futur', icone: '🚀', version: 99, resume: 'Plus tard.' }} />
+      </MemoryRouter>,
+    )
+    expect(screen.getByText('Bientôt disponible (V99).')).toBeInTheDocument()
   })
 
   it('ouvre le menu et navigue vers les Paramètres', () => {

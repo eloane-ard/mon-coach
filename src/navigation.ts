@@ -11,7 +11,7 @@ export type Espace = {
 }
 
 /** Version en cours de construction. Les espaces de versions ultérieures sont « à venir ». */
-export const VERSION_EN_COURS = 2
+export const VERSION_EN_COURS = 3
 
 export const ESPACES: Espace[] = [
   { chemin: '/', titre: 'Accueil', icone: '🏠', version: 5, resume: 'Tableau de bord, prochaine séance, régularité.' },
@@ -44,6 +44,7 @@ export const SOUS_PAGES: Record<string, string> = {
   '/programme/autre': 'Autre activité',
   '/course/saisie': 'Course',
   '/musculation/seance': 'Séance',
+  '/nutrition/aliment': 'Aliment',
   '/parametres/compte': 'Compte',
   '/parametres/profil': 'Profil',
   '/parametres/objectifs': 'Objectifs',
