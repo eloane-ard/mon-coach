@@ -11,7 +11,7 @@ export type Espace = {
 }
 
 /** Version en cours de construction. Les espaces de versions ultérieures sont « à venir ». */
-export const VERSION_EN_COURS = 4
+export const VERSION_EN_COURS = 5
 
 export const ESPACES: Espace[] = [
   { chemin: '/', titre: 'Accueil', icone: '🏠', version: 5, resume: 'Tableau de bord, prochaine séance, régularité.' },

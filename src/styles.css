@@ -397,3 +397,58 @@ ol li, ul li { margin: 0.3rem 0; }
 .ligne-ajout { display: flex; gap: 0.5rem; align-items: flex-end; }
 .ligne-ajout .champ { flex: 1; }
 .ligne-ajout .bouton { margin-bottom: 0.6rem; }
+
+/* ---------- Graphiques ----------
+   Palette catégorielle de référence (bleu, orange, aqua, jaune, magenta), validée pour les
+   daltonismes en clair et en sombre (script de validation du guide « dataviz »). */
+.viz {
+  --serie-1: #2a78d6; --serie-2: #eb6834; --serie-3: #1baf7a; --serie-4: #eda100; --serie-5: #e87ba4;
+  --viz-surface: var(--surface); --viz-grille: #e6eae8; --viz-axe: #6b7671; --viz-texte: var(--texte);
+}
+@media (prefers-color-scheme: dark) {
+  .viz { --serie-1: #3987e5; --serie-2: #d95926; --serie-3: #199e70; --serie-4: #c98500; --serie-5: #d55181; --viz-grille: #26332f; --viz-axe: #93a39d; }
+}
+.graphique { margin: 0 0 1rem; padding: 0.9rem 1rem; background: var(--surface); border: 1px solid var(--bordure); border-radius: var(--rayon); box-shadow: var(--ombre); }
+.graphique-titre { font-weight: 700; margin-bottom: 0.4rem; }
+.graphique-vide { margin: 0.5rem 0; }
+.graphique-zone { position: relative; }
+.graphique svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
+.graphique .grille { stroke: var(--viz-grille); stroke-width: 1; }
+.graphique .axe-base { stroke: var(--viz-axe); stroke-width: 1; }
+.graphique .axe { fill: var(--viz-axe); font-size: 10.5px; }
+.graphique svg { max-height: 320px; }
+.graphique .curseur { stroke: var(--viz-axe); stroke-width: 1; }
+.graphique .ligne-objectif-graph { stroke: var(--viz-axe); stroke-width: 1.5; stroke-dasharray: 2 4; }
+.trait-1, .trait-2, .trait-3, .trait-4, .trait-5 { stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+.trait-1 { stroke: var(--serie-1); } .trait-2 { stroke: var(--serie-2); } .trait-3 { stroke: var(--serie-3); } .trait-4 { stroke: var(--serie-4); } .trait-5 { stroke: var(--serie-5); }
+[class^="point-"] { stroke: var(--viz-surface); stroke-width: 2; }
+.point-1 { fill: var(--serie-1); } .point-2 { fill: var(--serie-2); } .point-3 { fill: var(--serie-3); } .point-4 { fill: var(--serie-4); } .point-5 { fill: var(--serie-5); }
+[class^="point-creux-"] { fill: var(--viz-surface); stroke-width: 2; }
+.point-creux-1 { stroke: var(--serie-1); } .point-creux-2 { stroke: var(--serie-2); } .point-creux-3 { stroke: var(--serie-3); } .point-creux-4 { stroke: var(--serie-4); } .point-creux-5 { stroke: var(--serie-5); }
+.point-actif { stroke-width: 3; }
+.barre { fill: var(--serie-1); }
+.barre-active { fill: var(--principal); }
+.legende { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; font-size: 0.82rem; color: var(--discret); margin-bottom: 0.3rem; }
+.legende span { display: inline-flex; align-items: center; gap: 0.3rem; }
+.info-bulle {
+  position: absolute; top: 0; pointer-events: none; min-width: 9rem;
+  display: flex; flex-direction: column; gap: 0.1rem;
+  padding: 0.45rem 0.6rem; border-radius: 10px; font-size: 0.82rem;
+  background: var(--surface); color: var(--texte); border: 1px solid var(--bordure); box-shadow: 0 4px 14px rgba(0,0,0,.12);
+}
+.info-bulle i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
+.pastille-1 { background: var(--serie-1); } .pastille-2 { background: var(--serie-2); } .pastille-3 { background: var(--serie-3); } .pastille-4 { background: var(--serie-4); } .pastille-5 { background: var(--serie-5); }
+.tableau-donnees summary { font-size: 0.82rem; color: var(--discret); font-weight: 500; }
+.defilement { overflow-x: auto; }
+.choix-periode { margin-bottom: 0.6rem; }
+
+/* ---------- Accueil ---------- */
+.semaine-points { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.3rem; margin: 0.4rem 0 0.6rem; text-align: center; }
+.jour-point span { display: block; font-size: 0.72rem; color: var(--discret); }
+.jour-point i { display: grid; place-items: center; margin: 0.2rem auto 0; width: 34px; height: 34px; border-radius: 50%; font-style: normal; font-weight: 700; border: 2px solid var(--bordure); color: var(--discret); }
+.jour-point.statut-faite i { background: var(--vert-ok); border-color: var(--vert-ok); color: #fff; }
+.jour-point.statut-manquee i { border-color: var(--ambre); color: var(--ambre); }
+.jour-point.statut-aujourdhui i { border-color: var(--principal); color: var(--principal); }
+.jour-point.statut-repos i { border-style: dashed; opacity: 0.5; }
+.ligne-repas-accueil { grid-template-columns: 5.5rem 1fr auto; }
+.prochaine-accueil { border-top: 1px solid var(--bordure); margin-top: 0.5rem; padding-top: 0.4rem; }
