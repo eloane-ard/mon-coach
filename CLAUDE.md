@@ -57,6 +57,8 @@ Mes données doivent toujours exister à au moins 3 endroits : téléphone, Supa
 
 ## Ordre de construction validé
 
+> **Décision d'Eloane du 28/10/2026** : pour accélérer la mise en place, les versions V1 à V6 sont codées à la suite, sans attendre une validation entre chaque version. Les choix faits sans elle sont listés dans `docs/choix-a-valider.md` pour relecture. Elle teste ensuite l'ensemble, version par version. Elle ne saisit pas de vraies données avant d'avoir vérifié l'export, la restauration et la sauvegarde automatique.
+
 Ne passe à la version suivante qu'après mon accord.
 
 1. **V1 – Fondations** : projet, PWA installable, authentification, base locale + Supabase + synchronisation, profil et objectifs, saisie des mesures corporelles (poids, tours de taille, hanches, cuisses, bras, poitrine, masse grasse et masse musculaire **estimées**, avec la source de chaque mesure : mètre ruban, balance impédancemètre, autre), historique des mesures, export, restauration, écran « État des sauvegardes », sauvegarde GitHub Actions et ping anti-pause.
