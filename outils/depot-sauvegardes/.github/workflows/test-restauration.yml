@@ -1,0 +1,42 @@
+# TEST DE RESTAURATION MENSUEL : le 1er de chaque mois, restaure la dernière sauvegarde
+# dans une base PostgreSQL de test toute neuve (jetée après le test) et compare
+# les nombres d'enregistrements avec le fichier JSON. Croix rouge si quelque chose cloche.
+name: Test de restauration mensuel
+on:
+  schedule:
+    - cron: '7 5 1 * *' # le 1er du mois vers 6h07 (heure de Paris en hiver)
+  workflow_dispatch:
+    inputs:
+      dossier:
+        description: 'Dossier à tester (ex. sauvegardes/2026-11-01). Vide = la plus récente.'
+        required: false
+permissions:
+  contents: read
+jobs:
+  tester:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Installer psql (PostgreSQL 17)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-common
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get install -y -qq postgresql-client-17
+          echo "/usr/lib/postgresql/17/bin" >> "$GITHUB_PATH"
+      - name: Restaurer et comparer
+        env:
+          TEST_DB_URL: postgresql://postgres:test@localhost:5432/postgres
+        run: node scripts/tester-restauration.mjs ${{ github.event.inputs.dossier }}

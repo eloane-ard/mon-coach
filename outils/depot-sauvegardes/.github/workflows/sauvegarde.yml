@@ -1,0 +1,70 @@
+# SAUVEGARDE HEBDOMADAIRE de la base Supabase de Mon Coach.
+# Chaque dimanche, copie toute la base dans ce dépôt PRIVÉ (avec historique) :
+#   sauvegardes/AAAA-MM-JJ/base.sql        → copie complète (pg_dump), restaurable dans PostgreSQL
+#   sauvegardes/AAAA-MM-JJ/mon-coach.json  → même format que l'export de l'appli,
+#                                             restaurable avec « Restaurer une sauvegarde »
+# Puis note la date dans Supabase pour l'écran « État des sauvegardes ».
+#
+# Secrets nécessaires (Settings → Secrets and variables → Actions) :
+#   SUPABASE_URL               adresse du projet (https://xxxx.supabase.co)
+#   SUPABASE_SERVICE_ROLE_KEY  clé secrète (service_role / sb_secret_…)
+#   SUPABASE_DB_URL            chaîne de connexion « Session pooler » (avec le mot de passe de la base)
+name: Sauvegarde hebdomadaire
+on:
+  schedule:
+    - cron: '23 3 * * 0' # dimanche vers 4h23 (heure de Paris en hiver)
+  workflow_dispatch: # bouton « Run workflow » pour lancer à la main
+permissions:
+  contents: write
+concurrency:
+  group: sauvegarde
+  cancel-in-progress: false
+jobs:
+  sauvegarder:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Installer pg_dump (PostgreSQL 17)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-common
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get install -y -qq postgresql-client-17
+          echo "/usr/lib/postgresql/17/bin" >> "$GITHUB_PATH"
+
+      - name: Date du jour
+        id: date
+        run: echo "dossier=sauvegardes/$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Copie complète de la base (pg_dump)
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          mkdir -p "${{ steps.date.outputs.dossier }}"
+          pg_dump "$SUPABASE_DB_URL" --schema=public --no-owner --no-privileges \
+            --file "${{ steps.date.outputs.dossier }}/base.sql"
+          test -s "${{ steps.date.outputs.dossier }}/base.sql"
+          grep -q "COPY public.enregistrements " "${{ steps.date.outputs.dossier }}/base.sql"
+
+      - name: Export JSON (format de l'appli)
+        id: json
+        run: node scripts/exporter-json.mjs "${{ steps.date.outputs.dossier }}/mon-coach.json"
+
+      - name: Enregistrer dans le dépôt
+        run: |
+          git config user.name "Sauvegarde automatique"
+          git config user.email "actions@users.noreply.github.com"
+          git add sauvegardes
+          git commit -m "Sauvegarde du $(date -u +%d/%m/%Y) : ${{ steps.json.outputs.nb_enregistrements }} enregistrements" || echo "Rien de nouveau."
+          git push
+
+      - name: Noter la sauvegarde dans Supabase
+        run: node scripts/noter-sauvegarde.mjs "${{ steps.json.outputs.nb_enregistrements }}" "${{ steps.date.outputs.dossier }}"

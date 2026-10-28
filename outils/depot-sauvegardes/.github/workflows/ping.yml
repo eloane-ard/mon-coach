@@ -1,0 +1,24 @@
+# PING ANTI-PAUSE : tous les 3 jours, interroge la base Supabase pour que
+# le projet gratuit ne soit jamais mis en pause (pause après 7 jours sans activité).
+# Vérifie aussi que la sauvegarde hebdomadaire a bien tourné (moins de 9 jours).
+name: Ping anti-pause Supabase
+on:
+  schedule:
+    - cron: '41 7 */3 * *' # tous les 3 jours vers 8h41 (heure de Paris en hiver)
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Ping et vérification de la dernière sauvegarde
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/ping.mjs
