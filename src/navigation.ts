@@ -32,7 +32,17 @@ export function estDisponible(espace: Espace, versionEnCours = VERSION_EN_COURS)
   return espace.version <= versionEnCours
 }
 
-/** Retrouve l'espace correspondant à une adresse (ex. « /course »). */
+/** Retrouve l'espace correspondant à une adresse (ex. « /course » ou « /course/saisie »). */
 export function espaceDuChemin(chemin: string): Espace | undefined {
-  return ESPACES.find((e) => e.chemin === chemin)
+  if (chemin === '/' || chemin === '') return ESPACES[0]
+  return ESPACES.filter((e) => e.chemin !== '/').find((e) => chemin === e.chemin || chemin.startsWith(`${e.chemin}/`))
+}
+
+/** Titres des sous-pages (affichés dans l'en-tête, avec un bouton retour). */
+export const SOUS_PAGES: Record<string, string> = {
+  '/evolution/saisie': 'Mesure',
+  '/parametres/compte': 'Compte',
+  '/parametres/profil': 'Profil',
+  '/parametres/objectifs': 'Objectifs',
+  '/parametres/sauvegardes': 'Sauvegardes',
 }

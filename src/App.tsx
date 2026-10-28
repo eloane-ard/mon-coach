@@ -1,21 +1,43 @@
 // Structure générale : en-tête, menu, contenu de la page.
-import { useEffect, useState } from 'react'
-import { Route, Routes, useLocation } from 'react-router'
-import { ESPACES, espaceDuChemin } from './navigation'
+import { useEffect, useState, type ReactNode } from 'react'
+import { Route, Routes, useLocation, useNavigate } from 'react-router'
+import { ESPACES, SOUS_PAGES, espaceDuChemin, estDisponible } from './navigation'
 import Menu from './composants/Menu'
 import BandeauMiseAJour from './composants/BandeauMiseAJour'
+import BandeauSynchro from './composants/BandeauSynchro'
 import { useEnLigne } from './composants/useEnLigne'
+import { useDemarrageSynchro } from './donnees/service-synchro'
 import Accueil from './pages/Accueil'
 import BientotDisponible from './pages/BientotDisponible'
-import Parametres from './pages/Parametres'
+import Evolution from './pages/evolution/Evolution'
+import SaisieMesure from './pages/evolution/SaisieMesure'
+import Parametres from './pages/parametres/Parametres'
+import Compte from './pages/parametres/Compte'
+import { PageObjectifs, PageProfil } from './pages/parametres/ProfilObjectifs'
+import Sauvegardes from './pages/parametres/Sauvegardes'
+
+/** Pages déjà construites, par adresse. Les autres espaces affichent « Bientôt disponible ». */
+const PAGES: Record<string, ReactNode> = {
+  '/': <Accueil />,
+  '/evolution': <Evolution />,
+  '/evolution/saisie': <SaisieMesure />,
+  '/parametres': <Parametres />,
+  '/parametres/compte': <Compte />,
+  '/parametres/profil': <PageProfil />,
+  '/parametres/objectifs': <PageObjectifs />,
+  '/parametres/sauvegardes': <Sauvegardes />,
+}
 
 export default function App() {
   const [menuOuvert, setMenuOuvert] = useState(false)
   const enLigne = useEnLigne()
   const { pathname } = useLocation()
+  const navigate = useNavigate()
   const espace = espaceDuChemin(pathname)
+  const sousPage = SOUS_PAGES[pathname]
+  useDemarrageSynchro()
 
-  // On ferme le menu et on remonte en haut de page à chaque changement d'espace.
+  // On ferme le menu et on remonte en haut de page à chaque changement d'adresse.
   useEffect(() => {
     setMenuOuvert(false)
     window.scrollTo(0, 0)
@@ -24,15 +46,21 @@ export default function App() {
   return (
     <div className="appli">
       <header className="entete">
-        <button
-          className="bouton-menu"
-          onClick={() => setMenuOuvert(!menuOuvert)}
-          aria-expanded={menuOuvert}
-          aria-label={menuOuvert ? 'Fermer le menu' : 'Ouvrir le menu'}
-        >
-          {menuOuvert ? '✕' : '☰'}
-        </button>
-        <h1 className="entete-titre">{espace?.titre ?? 'Mon Coach'}</h1>
+        {sousPage ? (
+          <button className="bouton-menu" onClick={() => navigate(-1)} aria-label="Retour">
+            ‹
+          </button>
+        ) : (
+          <button
+            className="bouton-menu"
+            onClick={() => setMenuOuvert(!menuOuvert)}
+            aria-expanded={menuOuvert}
+            aria-label={menuOuvert ? 'Fermer le menu' : 'Ouvrir le menu'}
+          >
+            {menuOuvert ? '✕' : '☰'}
+          </button>
+        )}
+        <h1 className="entete-titre">{sousPage ?? espace?.titre ?? 'Mon Coach'}</h1>
         {!enLigne && <span className="pastille-hors-ligne">Hors connexion</span>}
       </header>
 
@@ -40,10 +68,12 @@ export default function App() {
 
       <main className="contenu">
         <BandeauMiseAJour />
+        <BandeauSynchro />
         <Routes>
-          <Route path="/" element={<Accueil />} />
-          <Route path="/parametres" element={<Parametres />} />
-          {ESPACES.filter((e) => !['/', '/parametres'].includes(e.chemin)).map((e) => (
+          {Object.entries(PAGES).map(([chemin, page]) => (
+            <Route key={chemin} path={chemin} element={page} />
+          ))}
+          {ESPACES.filter((e) => !PAGES[e.chemin] || !estDisponible(e)).map((e) => (
             <Route key={e.chemin} path={e.chemin} element={<BientotDisponible espace={e} />} />
           ))}
           <Route path="*" element={<Accueil />} />
