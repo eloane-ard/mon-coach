@@ -17,6 +17,7 @@ export type TypeEnregistrement =
   | 'planning_semaine'
   | 'courses_semaine'
   | 'etat_sauvegardes'
+  | 'reglage_programme'
 
 export const TYPES_ENREGISTREMENT: TypeEnregistrement[] = [
   'profil',
@@ -30,6 +31,7 @@ export const TYPES_ENREGISTREMENT: TypeEnregistrement[] = [
   'planning_semaine',
   'courses_semaine',
   'etat_sauvegardes',
+  'reglage_programme',
 ]
 
 /** Nom affiché pour chaque type (écran « État des sauvegardes », restauration). */
@@ -45,6 +47,7 @@ export const NOMS_TYPES: Record<string, string> = {
   planning_semaine: 'Plannings des repas',
   courses_semaine: 'Listes de courses',
   etat_sauvegardes: 'État des sauvegardes',
+  reglage_programme: 'Réglages du programme',
 }
 
 export interface Enregistrement<D = Record<string, unknown>> {
@@ -74,3 +77,4 @@ export interface VersionArchivee extends Enregistrement {
 export const ID_PROFIL = '00000000-0000-4000-8000-000000000001'
 export const ID_OBJECTIFS = '00000000-0000-4000-8000-000000000002'
 export const ID_ETAT_SAUVEGARDES = '00000000-0000-4000-8000-000000000003'
+export const ID_REGLAGES_PROGRAMME = '00000000-0000-4000-8000-000000000004'
