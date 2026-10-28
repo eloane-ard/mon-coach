@@ -316,3 +316,43 @@ h3 { font-size: 1rem; margin: 0.8rem 0 0.4rem; }
 .lien-ligne strong { display: block; }
 .lien-ligne small { display: block; color: var(--discret); font-size: 0.82rem; }
 .lien-ligne::after { content: '›'; margin-left: auto; color: var(--discret); font-size: 1.4rem; }
+
+/* ---------- Sport ---------- */
+.navigation-semaine { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 1rem; text-align: center; }
+.navigation-semaine small { display: block; color: var(--discret); font-size: 0.82rem; }
+.navigation-semaine .bouton { min-width: 48px; font-size: 1.3rem; }
+.carte-prochaine { border: 2px solid var(--principal); }
+.boutons-seance { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem; }
+.boutons-seance .bouton { flex: 1 1 auto; }
+.carte-jour { padding: 0.8rem 1rem; }
+.carte-jour p { margin: 0.15rem 0; }
+.statut-repos { opacity: 0.75; }
+.statut-aujourdhui { border-color: var(--principal); }
+.fait { color: var(--vert-ok); font-weight: 600; font-size: 0.92rem; }
+.texte-alerte { color: var(--ambre); font-weight: 600; }
+.texte-succes { color: var(--vert-ok); font-weight: 600; }
+.liste-simple { margin: 0.4rem 0; padding-left: 1.1rem; font-size: 0.92rem; }
+.lien-compact { min-height: 52px; padding: 0.5rem 1rem; }
+.lien-compact > span:first-child { font-size: 0.8rem; font-weight: 700; background: var(--surface-2); border-radius: 8px; padding: 0.2rem 0.5rem; }
+.allure-calculee { font-size: 1.1rem; margin: 0.4rem 0; }
+.ligne-chiffres { font-size: 1.05rem; }
+details summary { cursor: pointer; padding: 0.3rem 0; font-weight: 600; }
+details.carte summary { list-style-position: inside; }
+
+.series { margin: 0.5rem 0; }
+.serie { display: grid; grid-template-columns: 2rem 1fr 1fr 52px; gap: 0.4rem; align-items: center; margin: 0.35rem 0; }
+.carte-exercice .serie:not(:has(input + input)) { grid-template-columns: 2rem 1fr 52px; }
+.entete-serie { font-size: 0.75rem; color: var(--discret); font-weight: 600; }
+.carte-exercice .entete-serie:not(:has(span + span + span + span)) { grid-template-columns: 2rem 1fr 52px; }
+.serie input { width: 100%; min-height: 46px; padding: 0.4rem 0.6rem; border: 1px solid var(--bordure); border-radius: 10px; background: var(--surface); color: var(--texte); font: inherit; font-size: 17px; text-align: center; }
+.serie.faite input { background: var(--vert-ok-fond); border-color: transparent; }
+.bouton-coche { width: 52px; height: 46px; border-radius: 12px; border: 2px solid var(--bordure); background: var(--surface); color: var(--discret); font-size: 1.3rem; cursor: pointer; }
+.bouton-coche.coche { background: var(--vert-ok); border-color: var(--vert-ok); color: #fff; }
+.carte-exercice.arrete { border-color: var(--ambre); }
+.minuterie {
+  position: sticky; top: calc(var(--entete-h) + var(--haut-sur) + 0.5rem); z-index: 10;
+  margin: 0 0 1rem; padding: 0.8rem 1rem; border-radius: var(--rayon);
+  background: var(--principal); color: var(--principal-texte);
+  font-size: 1.3rem; font-weight: 700; text-align: center; cursor: pointer;
+}
+.minuterie small { font-size: 0.75rem; font-weight: 400; opacity: 0.85; }

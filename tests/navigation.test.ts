@@ -24,8 +24,15 @@ describe('navigation', () => {
     expect(new Set(chemins).size).toBe(chemins.length)
   })
 
-  it('ne rend disponibles en V1 que l’Évolution physique et les Paramètres', () => {
-    expect(ESPACES.filter((e) => estDisponible(e)).map((e) => e.chemin)).toEqual([
+  it('en V1, seuls l’Évolution physique et les Paramètres sont disponibles', () => {
+    expect(ESPACES.filter((e) => estDisponible(e, 1)).map((e) => e.chemin)).toEqual(['/evolution', '/parametres'])
+  })
+
+  it('en V2, le sport s’ajoute', () => {
+    expect(ESPACES.filter((e) => estDisponible(e, 2)).map((e) => e.chemin)).toEqual([
+      '/programme',
+      '/course',
+      '/musculation',
       '/evolution',
       '/parametres',
     ])

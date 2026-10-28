@@ -15,12 +15,23 @@ import Parametres from './pages/parametres/Parametres'
 import Compte from './pages/parametres/Compte'
 import { PageObjectifs, PageProfil } from './pages/parametres/ProfilObjectifs'
 import Sauvegardes from './pages/parametres/Sauvegardes'
+import Programme from './pages/sport/Programme'
+import { PageCourse, SaisieCourse } from './pages/sport/Course'
+import { HistoriqueExercice, PageMusculation, SaisieSeance } from './pages/sport/Musculation'
+import SaisieAutre from './pages/sport/SaisieAutre'
 
 /** Pages déjà construites, par adresse. Les autres espaces affichent « Bientôt disponible ». */
 const PAGES: Record<string, ReactNode> = {
   '/': <Accueil />,
   '/evolution': <Evolution />,
   '/evolution/saisie': <SaisieMesure />,
+  '/programme': <Programme />,
+  '/programme/autre': <SaisieAutre />,
+  '/course': <PageCourse />,
+  '/course/saisie': <SaisieCourse />,
+  '/musculation': <PageMusculation />,
+  '/musculation/seance': <SaisieSeance />,
+  '/musculation/exercice/:id': <HistoriqueExercice />,
   '/parametres': <Parametres />,
   '/parametres/compte': <Compte />,
   '/parametres/profil': <PageProfil />,
@@ -34,7 +45,7 @@ export default function App() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const espace = espaceDuChemin(pathname)
-  const sousPage = SOUS_PAGES[pathname]
+  const sousPage = SOUS_PAGES[pathname] ?? (pathname.startsWith('/musculation/exercice/') ? 'Exercice' : undefined)
   useDemarrageSynchro()
 
   // On ferme le menu et on remonte en haut de page à chaque changement d'adresse.
