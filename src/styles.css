@@ -1,0 +1,191 @@
+/* Styles de l'appli : sobres, pensés d'abord pour l'iPhone (gros boutons), adaptés au PC. */
+
+:root {
+  --vert: #14614f;
+  --vert-clair: #1d7d67;
+  --fond: #f4f6f5;
+  --surface: #ffffff;
+  --surface-2: #eaf0ee;
+  --texte: #17211e;
+  --discret: #5c6b66;
+  --bordure: #dce4e1;
+  --principal: #14614f;
+  --principal-texte: #ffffff;
+  --ambre: #8a5a00;
+  --ambre-fond: #fff1d6;
+  --rayon: 16px;
+  --ombre: 0 1px 2px rgba(16, 32, 28, 0.06), 0 2px 6px rgba(16, 32, 28, 0.06);
+  --entete-h: 56px;
+  --haut-sur: env(safe-area-inset-top, 0px);
+  --bas-sur: env(safe-area-inset-bottom, 0px);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fond: #0e1513;
+    --surface: #16201d;
+    --surface-2: #1e2b27;
+    --texte: #e6eeeb;
+    --discret: #9db0aa;
+    --bordure: #2a3934;
+    --principal: #3fa58b;
+    --principal-texte: #06120f;
+    --ambre: #ffc66b;
+    --ambre-fond: #3a2a10;
+    --ombre: none;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h2 { font-size: 1.15rem; margin: 0 0 0.4rem; }
+p { margin: 0.3rem 0; }
+a { color: inherit; }
+
+/* ---------- En-tête ---------- */
+.entete {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: calc(var(--entete-h) + var(--haut-sur));
+  padding: var(--haut-sur) 1rem 0;
+  background: var(--vert);
+  color: #fff;
+}
+.entete-titre { flex: 1; font-size: 1.1rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bouton-menu {
+  width: 44px; height: 44px;
+  border: 0; border-radius: 12px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff; font-size: 1.3rem;
+  cursor: pointer;
+}
+.pastille-hors-ligne {
+  font-size: 0.75rem; font-weight: 600;
+  padding: 0.25rem 0.6rem; border-radius: 999px;
+  background: var(--ambre-fond); color: var(--ambre);
+}
+
+/* ---------- Menu ---------- */
+.menu {
+  display: none;
+  position: fixed;
+  z-index: 15;
+  top: calc(var(--entete-h) + var(--haut-sur));
+  left: 0; right: 0; bottom: 0;
+  overflow-y: auto;
+  background: var(--surface);
+  padding: 0.5rem 0.75rem calc(1rem + var(--bas-sur));
+}
+.menu-ouvert { display: block; }
+.menu ul { list-style: none; margin: 0; padding: 0; }
+.menu-lien {
+  display: flex; align-items: center; gap: 0.8rem;
+  min-height: 52px; padding: 0 0.75rem;
+  border-radius: 12px;
+  text-decoration: none;
+}
+.menu-lien.actif { background: var(--surface-2); font-weight: 600; }
+.menu-icone { font-size: 1.3rem; width: 1.8rem; text-align: center; }
+.menu-titre { flex: 1; }
+
+.badge-version {
+  font-size: 0.7rem; font-weight: 700;
+  padding: 0.1rem 0.45rem; border-radius: 999px;
+  background: var(--surface-2); color: var(--discret);
+}
+
+/* ---------- Contenu ---------- */
+.contenu {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1rem 1rem calc(2rem + var(--bas-sur));
+}
+
+.carte {
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+.carte-bienvenue { background: var(--surface-2); border-color: transparent; box-shadow: none; }
+.texte-discret { color: var(--discret); font-size: 0.92rem; }
+
+.grille-espaces {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+.tuile {
+  position: relative;
+  display: flex; flex-direction: column; gap: 0.4rem;
+  min-height: 104px; padding: 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  text-decoration: none;
+}
+.tuile:active { transform: scale(0.98); }
+.tuile-icone { font-size: 1.6rem; }
+.tuile-titre { font-weight: 600; font-size: 0.95rem; }
+.tuile .badge-version { position: absolute; top: 0.6rem; right: 0.6rem; }
+.tuile-a-venir .tuile-icone, .tuile-a-venir .tuile-titre { opacity: 0.55; }
+
+.page-vide { text-align: center; padding: 2rem 1.2rem; }
+.page-vide-icone { font-size: 2.6rem; display: block; margin-bottom: 0.5rem; }
+.page-vide .bouton { margin-top: 1rem; }
+
+.bouton {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 1.2rem;
+  border: 1px solid var(--bordure); border-radius: 12px;
+  background: var(--surface); color: var(--texte);
+  font: inherit; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+}
+.bouton-principal { background: var(--principal); color: var(--principal-texte); border-color: transparent; }
+
+.bandeau {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem;
+  padding: 0.8rem 1rem; margin-bottom: 1rem;
+  border-radius: var(--rayon);
+  background: var(--surface-2);
+}
+
+.liste-infos { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; margin: 0.5rem 0 0; }
+.liste-infos dt { color: var(--discret); }
+.liste-infos dd { margin: 0; }
+
+.note-sante { margin-top: 1.5rem; text-align: center; color: var(--discret); font-size: 0.82rem; }
+
+/* ---------- Grand écran (PC) : menu toujours visible à gauche ---------- */
+@media (min-width: 900px) {
+  .bouton-menu { display: none; }
+  .menu {
+    display: block;
+    top: var(--entete-h); right: auto;
+    width: 280px;
+    border-right: 1px solid var(--bordure);
+  }
+  .contenu { margin-left: 280px; margin-right: auto; padding: 1.5rem 2rem 2rem; max-width: 900px; }
+  .grille-espaces { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

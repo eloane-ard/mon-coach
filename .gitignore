@@ -2,6 +2,7 @@
 node_modules/
 dist/
 coverage/
+*.tsbuildinfo
 
 # Secrets : ne jamais envoyer sur GitHub
 .env
