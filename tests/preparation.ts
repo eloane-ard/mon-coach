@@ -5,3 +5,4 @@ import { afterEach } from 'vitest'
 
 // Efface l'affichage entre deux tests pour qu'ils ne se mélangent pas.
 afterEach(() => cleanup())
+window.scrollTo = () => {}
