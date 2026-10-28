@@ -1,0 +1,20 @@
+# Dépendances et fichiers générés
+node_modules/
+dist/
+coverage/
+
+# Secrets : ne jamais envoyer sur GitHub
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Sauvegardes et exports locaux de mes données (restent sur mon ordinateur)
+*.sql
+*.dump
+mon-coach-export-*.json
+
+# Fichiers système
+.DS_Store
+Thumbs.db
