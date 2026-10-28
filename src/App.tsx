@@ -21,6 +21,8 @@ import { HistoriqueExercice, PageMusculation, SaisieSeance } from './pages/sport
 import SaisieAutre from './pages/sport/SaisieAutre'
 import { FicheRecette, PageRecettes } from './pages/nutrition/Recettes'
 import { PageNutrition, SaisieAliment } from './pages/nutrition/Nutrition'
+import { ChangerRepas, PagePlanning } from './pages/nutrition/Planning'
+import { PageCourses } from './pages/nutrition/Courses'
 
 /** Pages déjà construites, par adresse. Les autres espaces affichent « Bientôt disponible ». */
 const PAGES: Record<string, ReactNode> = {
@@ -38,6 +40,9 @@ const PAGES: Record<string, ReactNode> = {
   '/nutrition/aliment': <SaisieAliment />,
   '/recettes': <PageRecettes />,
   '/recettes/:id': <FicheRecette />,
+  '/planning-repas': <PagePlanning />,
+  '/planning-repas/changer': <ChangerRepas />,
+  '/courses': <PageCourses />,
   '/parametres': <Parametres />,
   '/parametres/compte': <Compte />,
   '/parametres/profil': <PageProfil />,

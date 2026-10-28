@@ -379,3 +379,21 @@ details.carte summary { list-style-position: inside; }
 .liste-ingredients li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0; border-bottom: 1px solid var(--bordure); }
 ol, ul { padding-left: 1.2rem; }
 ol li, ul li { margin: 0.3rem 0; }
+
+/* ---------- Planning et courses ---------- */
+.ligne-repas { display: grid; grid-template-columns: 5.5rem 1fr auto auto; gap: 0.4rem; align-items: center; padding: 0.45rem 0; border-top: 1px solid var(--bordure); }
+.ligne-repas:first-of-type { border-top: 0; }
+.repas-nom { font-size: 0.78rem; color: var(--discret); font-weight: 600; }
+.repas-recette { text-decoration: none; font-size: 0.93rem; font-weight: 600; line-height: 1.25; }
+.repas-recette small { display: block; font-weight: 400; color: var(--discret); font-size: 0.78rem; }
+.bouton-suivi { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--bordure); background: var(--surface); font-size: 1.1rem; color: var(--discret); cursor: pointer; }
+.suivi-true { background: var(--vert-ok); border-color: var(--vert-ok); color: #fff; }
+.suivi-false { background: var(--rouge-fond); border-color: var(--rouge); color: var(--rouge); }
+.carte-bouton { width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; display: flex; flex-direction: column; gap: 0.2rem; }
+.ligne-course { padding: 0.35rem 0; border-bottom: 1px solid var(--bordure); margin: 0; }
+.ligne-course span strong { display: block; font-weight: 600; }
+.ligne-course span small { display: block; color: var(--discret); font-size: 0.8rem; }
+.ligne-course.cochee span { text-decoration: line-through; opacity: 0.55; }
+.ligne-ajout { display: flex; gap: 0.5rem; align-items: flex-end; }
+.ligne-ajout .champ { flex: 1; }
+.ligne-ajout .bouton { margin-bottom: 0.6rem; }
