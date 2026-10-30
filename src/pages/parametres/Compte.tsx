@@ -1,9 +1,9 @@
-// Compte et synchronisation : connexion par code reçu par e-mail, état de la synchronisation.
+// Compte et synchronisation : connexion par e-mail et mot de passe, état de la synchronisation.
 import { useState } from 'react'
 import { ChampTexte, Message } from '../../composants/formulaire'
 import { supabaseConfigure } from '../../config'
 import { lancerSynchro, useEtatSynchro, useInfosSynchro } from '../../donnees/service-synchro'
-import { envoyerCode, seDeconnecter, verifierCode } from '../../donnees/supabase'
+import { creerCompte, seConnecter, seDeconnecter } from '../../donnees/supabase'
 import { formatDateHeure } from '../../utils/dates'
 
 export default function Compte() {
@@ -76,16 +76,19 @@ export default function Compte() {
 
 function FormulaireConnexion() {
   const [email, setEmail] = useState('')
-  const [code, setCode] = useState('')
-  const [etape, setEtape] = useState<'email' | 'code'>('email')
+  const [motDePasse, setMotDePasse] = useState('')
+  const [mode, setMode] = useState<'connexion' | 'creation'>('connexion')
   const [erreur, setErreur] = useState<string | null>(null)
   const [enCours, setEnCours] = useState(false)
+  const creation = mode === 'creation'
+  const valide = email.includes('@') && motDePasse.length >= (creation ? 8 : 1)
 
-  async function action(f: () => Promise<void>) {
+  async function valider() {
     setErreur(null)
     setEnCours(true)
     try {
-      await f()
+      if (creation) await creerCompte(email, motDePasse)
+      else await seConnecter(email, motDePasse)
     } catch (e) {
       setErreur(e instanceof Error ? e.message : String(e))
     } finally {
@@ -95,51 +98,34 @@ function FormulaireConnexion() {
 
   return (
     <section className="carte">
-      <h2>Connexion</h2>
-      {etape === 'email' ? (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            action(async () => {
-              await envoyerCode(email)
-              setEtape('code')
-            })
-          }}
-        >
-          <p className="texte-discret">Tu vas recevoir un code par e-mail. Pas de mot de passe à retenir.</p>
-          <ChampTexte libelle="Adresse e-mail" type="email" valeur={email} onChange={setEmail} />
-          <button className="bouton bouton-principal bouton-large" disabled={enCours || !email.includes('@')}>
-            {enCours ? 'Envoi…' : 'Recevoir un code'}
-          </button>
-        </form>
-      ) : (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            action(() => verifierCode(email, code))
-          }}
-        >
-          <p>Code envoyé à {email}. Il est valable une heure.</p>
-          <div className="champ">
-            <label htmlFor="code">Code reçu</label>
-            <input
-              id="code"
-              className="champ-code"
-              inputMode="numeric"
-              autoComplete="one-time-code"
-              value={code}
-              onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
-              maxLength={10}
-            />
-          </div>
-          <button className="bouton bouton-principal bouton-large" disabled={enCours || code.length < 6}>
-            {enCours ? 'Vérification…' : 'Se connecter'}
-          </button>
-          <button type="button" className="bouton bouton-lien" onClick={() => setEtape('email')}>
-            Changer d’adresse ou renvoyer un code
-          </button>
-        </form>
-      )}
+      <h2>{creation ? 'Créer mon compte' : 'Connexion'}</h2>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          valider()
+        }}
+      >
+        <ChampTexte libelle="Adresse e-mail" type="email" valeur={email} onChange={setEmail} />
+        <div className="champ">
+          <label htmlFor="mot-de-passe">Mot de passe</label>
+          <input
+            id="mot-de-passe"
+            type="password"
+            autoComplete={creation ? 'new-password' : 'current-password'}
+            value={motDePasse}
+            onChange={(e) => setMotDePasse(e.target.value)}
+          />
+          {creation && (
+            <p className="aide">Au moins 8 caractères. Accepte la proposition de l’iPhone de l’enregistrer dans le trousseau.</p>
+          )}
+        </div>
+        <button className="bouton bouton-principal bouton-large" disabled={enCours || !valide}>
+          {enCours ? 'Patiente…' : creation ? 'Créer mon compte' : 'Se connecter'}
+        </button>
+      </form>
+      <button type="button" className="bouton bouton-lien" onClick={() => setMode(creation ? 'connexion' : 'creation')}>
+        {creation ? 'J’ai déjà un compte : me connecter' : 'Première fois ? Créer mon compte'}
+      </button>
       {erreur && <Message type="erreur">{erreur}</Message>}
     </section>
   )
