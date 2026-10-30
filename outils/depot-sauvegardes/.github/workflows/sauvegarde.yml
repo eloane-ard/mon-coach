@@ -32,6 +32,19 @@ jobs:
         with:
           node-version: 22
 
+      - name: Vérifier les secrets
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          manquants=""
+          [ -z "$SUPABASE_URL" ] && manquants="$manquants SUPABASE_URL"
+          [ -z "$SUPABASE_SERVICE_ROLE_KEY" ] && manquants="$manquants SUPABASE_SERVICE_ROLE_KEY"
+          [ -z "$SUPABASE_DB_URL" ] && manquants="$manquants SUPABASE_DB_URL"
+          if [ -n "$manquants" ]; then
+            echo "::error::Secrets manquants dans ce dépôt (Paramètres → Secrets et variables → Actions → onglet Secrets) :$manquants"
+            exit 1
+          fi
+
       - name: Installer pg_dump (PostgreSQL 17)
         run: |
           sudo apt-get update -qq
