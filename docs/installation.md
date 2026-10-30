@@ -40,20 +40,15 @@ demande-moi (Claude) en me décrivant ce que tu vois.
 4. Vérification : menu **Table Editor**. Tu dois voir `enregistrements`, `enregistrements_historique`
    et `journal_sauvegardes`, chacune sans l'avertissement « RLS disabled ».
 
-### Recevoir un code à 6 chiffres par e-mail
+### Connexion par e-mail et mot de passe (sans e-mail de confirmation)
 
-1. Menu **Authentication**, puis **Emails** (ou **Email Templates**), puis le modèle **Magic Link**.
-2. Remplace le sujet par : `Ton code Mon Coach`
-3. Remplace tout le contenu par :
+Supabase ne permet plus de modifier les modèles d'e-mail sur les nouveaux projets gratuits. La connexion se fait donc
+par **e-mail + mot de passe** (décision du 30/10/2026), sans e-mail à recevoir.
 
-   ```html
-   <h2>Ton code de connexion</h2>
-   <p>Saisis ce code dans l'appli Mon Coach :</p>
-   <p style="font-size:28px;font-weight:bold;letter-spacing:4px">{{ .Token }}</p>
-   <p>Si tu n'as rien demandé, ignore ce message.</p>
-   ```
-
-4. Clique sur **Save**.
+1. Menu **Authentication**, puis **Sign In / Providers** (ou **Providers**), puis **Email**.
+2. Vérifie que **Enable Email provider** est activé.
+3. **Désactive « Confirm email »**, puis clique sur **Save**.
+   (Sinon, Supabase enverrait un e-mail avec un lien de confirmation qui ne fonctionne pas dans l'appli.)
 
 ---
 
@@ -76,10 +71,11 @@ demande-moi (Claude) en me décrivant ce que tu vois.
 1. Sur l'iPhone, dans **Safari** : ouvre https://eloane-ard.github.io/mon-coach/
 2. Touche **Partager**, puis **Sur l'écran d'accueil**, puis **Ajouter**.
 3. Ouvre l'appli **depuis l'icône**, puis va dans **Paramètres → Compte et synchronisation**.
-4. Saisis ton e-mail, puis **Recevoir un code**. Saisis le code reçu, puis **Se connecter**.
+4. Touche **« Première fois ? Créer mon compte »**, saisis ton e-mail et un mot de passe (au moins 8 caractères),
+   puis **Créer mon compte**. Accepte que l'iPhone enregistre le mot de passe dans le trousseau.
 5. **Fermer les inscriptions** (pour que personne d'autre ne puisse créer de compte) : dans Supabase,
    **Authentication → Sign In / Providers** (ou **Settings**), et désactive **Allow new users to sign up**. Enregistre.
-6. Sur le PC : ouvre la même adresse et connecte-toi avec le même e-mail.
+6. Sur le PC : ouvre la même adresse et **Se connecter** avec le même e-mail et le même mot de passe.
 
 ---
 

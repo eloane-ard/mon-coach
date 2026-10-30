@@ -6,7 +6,7 @@ Coche au fur et à mesure. Si quelque chose ne va pas, décris-moi ce que tu as 
 
 - [ ] L'appli s'installe sur l'écran d'accueil de l'iPhone. Elle s'ouvre en plein écran, et **Paramètres** indique
       « Appli installée ».
-- [ ] Connexion avec le code reçu par e-mail, sur l'iPhone puis sur le PC.
+- [ ] Connexion avec ton e-mail et ton mot de passe, sur l'iPhone puis sur le PC.
 - [ ] **Paramètres → Profil** et **Objectifs** : vérifier les valeurs reprises de la conception, puis **Enregistrer**.
 - [ ] **Évolution physique → Nouvelle mesure** : saisir une mesure d'essai avec une virgule (ex. `77,2`).
       La masse grasse apparaît en violet avec « estimation ».

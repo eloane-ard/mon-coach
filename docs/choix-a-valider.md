@@ -59,6 +59,10 @@ chacun se modifie facilement.
 
 ## Technique et données
 
+- **Connexion par e-mail et mot de passe** (décision d'Eloane du 30/10/2026) : Supabase ne permet plus de modifier
+  les modèles d'e-mail sur les nouveaux projets gratuits, donc pas de code à 6 chiffres. « Confirm email » est désactivé,
+  et les inscriptions sont fermées après la création du compte. Mot de passe gardé dans le trousseau iCloud.
+
 - **Une seule table « enregistrements »** dans Supabase, avec le contenu au format JSON. Avantage : ajouter un champ
   dans l'appli ne demande jamais de modifier la base, donc aucune synchronisation ne peut échouer pour ça.
 - **Historique de toutes les versions** dans Supabase (`enregistrements_historique`) et sur l'appareil.

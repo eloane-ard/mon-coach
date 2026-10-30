@@ -14,7 +14,7 @@ hors connexion, avec synchronisation Supabase et sauvegardes automatiques. 100 %
 
 | Version | Contenu |
 | --- | --- |
-| V1 Fondations | connexion par code e-mail, base locale + synchronisation, profil et objectifs, mesures corporelles (sources, estimations), export, restauration avec aperçu, état des sauvegardes |
+| V1 Fondations | connexion par e-mail et mot de passe, base locale + synchronisation, profil et objectifs, mesures corporelles (sources, estimations), export, restauration avec aperçu, état des sauvegardes |
 | V2 Sport | programme de la semaine, séances de muscu A/B pré-remplies, minuterie de repos, courses (allure calculée), gêne au genou, séances manquées, semaines légères |
 | V3 Recettes et nutrition | 73 aliments (Ciqual), 40 recettes, filtres (envie, temps, placards), favoris, besoins estimés |
 | V4 Menus et courses | planning 7 jours, alternatives, « j'ai suivi le plan », liste de courses par rayon, budget |
